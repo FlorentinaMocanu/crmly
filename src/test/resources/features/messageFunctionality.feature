@@ -12,44 +12,43 @@ Feature: As a user, I should be able to send messages by clicking on Message tab
   More than one recipient can be added and are deletable.
 
   Background:user is on login page
-    Given user is login page
-    And user enter valid username,password
-    When user click login button go to home page
-    Then click on message button
+    Given User logs in
+  Then user click on message button
 
- @CRMLY10-229 @wip
+
+
+ @CRMLY10-229
   Scenario: User send a message by filling in the mandatory fields.
-    When user enters text in message fields
-    Then User sent message
+    When user type "Hello" in message fields
+    Then User click send message button
 
-   @CRMLY10-231 @wip
+   @CRMLY10-231
    Scenario:The message delivery should be to 'All employees' by default and should be changeable.
-     Given user see All employees is default
+     When user see All employees by default
      And user can delete All employees from recipients
 
      @CRMLY10-232 @wip
    Scenario:user see error message if want to send message without recipient
-     Given user enters text in message fields
+     When user type "Hello" in message fields
      And user can delete All employees from recipients
-      When User sent message
-     Then user see error message for recipient field
+     And User click send message button
+     Then user see error message "Please specify at least one person."
 
 
-     @CRMLY10-233 @wip
+     @CRMLY10-233
       Scenario: user see error message if want to send message without title
-        Given User sent message
-        Then user see error message for message title
+       When user click sent message button without title
+       Then user sees error message "The message title is not specified"
 
-     @CRMLY10-234 @wip
+     @CRMLY10-234
      Scenario: More than one recipient can be added and are deletable.
-       Given user see All employees is default
-       And  user add a recipient
-       And user add second recipient
-       When user delete second recipient
-       Then user delete added recipient
+       When user see All employees by default
+       And user add new recipient "helpdesk2@cybertekschool.com"
+       And user add second recipient "helpdesk4@cybertekschool.com"
+      Then user delete added recipients
 
 
-    @CRMLY10-235 @wip
+    @CRMLY10-235
     Scenario: User should be able to cancel sending messages at any time before sending.
-    Given user enters text in message fields
+    When   user type "Hello" in message fields
     Then user cancel send message

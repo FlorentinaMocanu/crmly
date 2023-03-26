@@ -1,11 +1,15 @@
 package com.crmly.pages;
 
+import com.crmly.utilities.ConfigurationReader;
 import com.crmly.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
+
 public class CrmlyMessagePage {
+
 
     public CrmlyMessagePage(){
         PageFactory.initElements(Driver.getDriver(),this);
@@ -35,8 +39,9 @@ public class CrmlyMessagePage {
     @FindBy(id = "blog-submit-button-save")
     public WebElement sendButton;
 
-    @FindBy(xpath = "//span[@class='feed-add-post-destination-text']")
-    public WebElement allEmployees;
+
+    @FindBy(xpath = "//*[@id=\"feed-add-post-destination-item\"]/span/span[1]")
+    public WebElement allEmployeeText;
 
     @FindBy(xpath = "//span[@class='feed-add-post-del-but']")
     public WebElement deleteAllEmployee;
@@ -62,6 +67,18 @@ public class CrmlyMessagePage {
   @FindBy(xpath = "//*[@class='bx-finder-box-item-t7-name']")
   public WebElement clickRecipient;
 
-  @FindBy(xpath = "//*[@id=\"feed-add-post-destination-item\"]/span[3]/span[2]")
+  @FindBy(xpath ="//*[@id=\"feed-add-post-destination-item\"]/span[3]/span[2]" )
   public WebElement deleteSecondRecipient;
+
+  public void login(){
+    String url= ConfigurationReader.getProperty("url.crmly");
+    Driver.getDriver().get(url);
+    usernameBox.sendKeys(ConfigurationReader.getProperty("hr_username"));
+    passwordBox.sendKeys(ConfigurationReader.getProperty("hr_password"));
+    loginButton.click();
+
+  }
+
+
+
 }
